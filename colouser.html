@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+
+<html>
+
+
+
+
+<input oninput="wow()" id="w">
+<div id="box"></div>
+
+
+<script>
+
+
+var id;
+
+async function run(){
+
+    var box=document.getElementById('box');
+    box.textContent=null;
+     
+     var input=document.getElementById('w').value;
+
+    let res =await fetch(`https://swapi.dev/api/people/?search=${input}`)
+
+   
+      let a= await res.json();
+
+
+      return a.results;
+
+}
+
+
+
+async function throtle(){
+
+let movies= await run();
+
+appendmovies(movies);
+
+
+
+}
+
+
+
+function wow(){
+
+
+    if(id){
+        return false;
+    }
+
+
+id=setTimeout(function(){
+
+   
+     throtle();
+
+     id=undefined
+
+},1000)
+
+}
+
+
+ function appendmovies(c){
+
+    var box=document.getElementById('box');
+
+
+
+
+
+
+
+
+
+c.forEach(el => {
+    
+    var p=document.createElement('p');
+
+    p.innerText=el.name;
+
+
+   // console.log(el.name)
+
+   
+    box.append(p);
+
+
+
+});
+
+  
+     
+
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
